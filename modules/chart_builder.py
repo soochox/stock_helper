@@ -12,7 +12,7 @@ def build_chart(df, title, ma_list, date_min, date_max, height=1000):
     """
 
     # RSI 최종 값 계산
-    latest_rsi = df['RSI'].iloc[-1] if 'RSI' in df.columns and not df['RSI'].isnull().all() else None
+    latest_rsi = df['RSI'].iloc[0] if 'RSI' in df.columns and not df['RSI'].isnull().all() else None
     rsi_title = f"RSI: {latest_rsi:.2f})" if latest_rsi is not None else "RSI"
 
     fig = make_subplots(
