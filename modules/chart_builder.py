@@ -10,7 +10,7 @@ def build_chart(df, ticker, ma_list, date_min, date_max):
     fig = make_subplots(rows=3, cols=1, shared_xaxes=True,
                         row_heights=[0.5, 0.25, 0.25],
                         vertical_spacing=0.04,
-                        subplot_titles=(f"{ticker} 봉차트 + 이동평균선", "거래량", "RSI (상대강도지수)"))
+                        subplot_titles=(f"{ticker}", "거래량", "RSI (상대강도지수)"))
 
     # 1행: 봉차트
     fig.add_trace(go.Candlestick(

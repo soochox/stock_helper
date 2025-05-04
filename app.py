@@ -42,7 +42,18 @@ if st.button("차트 그리기"):
     else:
         df = add_moving_averages(df, ma_periods)
         df = compute_rsi(df)
-        fig = build_chart(df, ticker, ma_periods, df['Date'], df['Date'])
+
+        # ✅ 최신 종가 및 전일 종가 추출
+        current_price = df['Close'].iloc[-1]
+        previous_close = df['Close'].iloc[-2] if len(df) > 1 else current_price
+
+        # ✅ 전일 대비 변화율 계산
+        price_change_pct = ((current_price - previous_close) / previous_close * 100) if previous_close > 0 else 0
+
+        # ✅ 제목에 현재가 및 변화율 표시
+        chart_title = f"{ticker} (현재가: ${current_price:.2f}, 전일대비: {price_change_pct:.2f}%)"
+
+        fig = build_chart(df, chart_title, ma_periods, df['Date'], df['Date'])
         st.plotly_chart(fig, use_container_width=True)
 
 # ✅ 2. 진입 체크리스트
