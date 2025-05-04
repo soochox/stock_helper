@@ -3,7 +3,7 @@ from plotly.subplots import make_subplots
 
 def build_chart(df, ticker, ma_list, date_min, date_max, height=1000):
     """Plotly를 이용한 봉차트 + MA + 거래량 + RSI 시각화 구성 (영업일만 표시)
-       색약 고려: 상승 = 빨강, 하락 = 파랑 (사용자 요청에 따라 반대로 설정)
+       색약 고려: 상승 = 빈색(투명한 선), 하락 = 진한 파랑색
     """
     fig = make_subplots(
         rows=3, cols=1, shared_xaxes=True,
@@ -12,10 +12,14 @@ def build_chart(df, ticker, ma_list, date_min, date_max, height=1000):
         subplot_titles=(f"{ticker}", "거래량", "RSI (상대강도지수)")
     )
 
-    # 1행: 봉차트 (색약 고려하여 상승=빨강, 하락=파랑으로 설정)
+    # 1행: 봉차트 (상승: 빈색, 하락: 진한 파랑색)
     fig.add_trace(go.Candlestick(
         x=df['Date'], open=df['Open'], high=df['High'], low=df['Low'], close=df['Close'],
-        name='Price', increasing_line_color='red', decreasing_line_color='blue'
+        name='Price',
+        increasing_line_color='rgba(0,0,0,0)',  # 투명색
+        decreasing_line_color='darkblue',
+        increasing_fillcolor='rgba(255, 255, 255, 0)',  # 내부도 투명
+        decreasing_fillcolor='darkblue'
     ), row=1, col=1)
 
     # 이동평균선 겹쳐서 표시
@@ -32,7 +36,7 @@ def build_chart(df, ticker, ma_list, date_min, date_max, height=1000):
     ), row=2, col=1)
 
     fig.update_yaxes(title_text='Volume', row=2, col=1)
-    fig.update_xaxes(type='category', tickformat="%Y-%m-%d", row=2, col=1)
+    fig.update_xaxes(type='category', tickformat="%y-%m-%d", row=2, col=1)
 
     # 3행: RSI
     fig.add_trace(go.Scatter(
@@ -45,8 +49,8 @@ def build_chart(df, ticker, ma_list, date_min, date_max, height=1000):
     fig.add_shape(type='line', x0=df['Date'].min(), x1=df['Date'].max(), y0=30, y1=30,
                   line=dict(dash='dot', color='gray'), row=3, col=1)
 
-    fig.update_xaxes(type='category', row=3, col=1)
-    fig.update_xaxes(type='category', row=1, col=1)
+    fig.update_xaxes(type='category', tickformat="%y-%m-%d", row=3, col=1)
+    fig.update_xaxes(type='category', tickformat="%y-%m-%d", row=1, col=1)
 
     # 전역 설정
     fig.update_layout(
