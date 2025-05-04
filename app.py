@@ -43,6 +43,9 @@ if st.button("차트 그리기"):
         df = add_moving_averages(df, ma_periods)
         df = compute_rsi(df)
 
+        # ✅ 날짜 포맷 간결화
+        df['Date'] = pd.to_datetime(df['Date']).dt.strftime('%y-%m-%d')
+
         # ✅ 최신 종가 및 전일 종가 추출
         current_price = df['Close'].iloc[-1]
         previous_close = df['Close'].iloc[-2] if len(df) > 1 else current_price
