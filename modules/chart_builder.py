@@ -8,6 +8,7 @@ def build_chart(df, title, ma_list, date_min, date_max, height=1000):
     - 색약 대응: 상승 = 흰색, 하락 = 검정색
     - 날짜 라벨 회전 및 형식 축소
     - 모바일 대응 시 legend 위치 조정 가능
+    - 범례 크기 축소 및 사용자 차트 리사이징 제한
     """
     fig = make_subplots(
         rows=3, cols=1, shared_xaxes=True,
@@ -51,33 +52,22 @@ def build_chart(df, title, ma_list, date_min, date_max, height=1000):
                   line=dict(dash='dot', color='gray'), row=3, col=1)
 
     # X축 포맷 일괄 적용: 세로 회전
-    fig.update_xaxes(
-        type='category',
-        tickangle=90,
-        row=1, col=1
-    )
-    fig.update_xaxes(
-        type='category',
-        tickangle=90,
-        row=2, col=1
-    )
-    fig.update_xaxes(
-        type='category',
-        tickangle=90,
-        row=3, col=1
-    )
+    for r in [1, 2, 3]:
+        fig.update_xaxes(type='category', tickangle=90, row=r, col=1)
 
-    # 범례 위치 조정 (모바일 여부에 따라 설정 가능)
+    # 범례 위치 및 크기 조정, 드래그 확대 제한
     fig.update_layout(
         height=height,
         xaxis_rangeslider_visible=False,
         showlegend=True,
+        dragmode=False,
         legend=dict(
             orientation="v",
             yanchor="top",
             y=1,
             xanchor="left",
-            x=0
+            x=0,
+            font=dict(size=9)  # 기본 크기보다 약 30% 축소
         )
     )
 
