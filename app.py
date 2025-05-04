@@ -7,14 +7,8 @@ from modules.indicators import add_moving_averages, compute_rsi
 from modules.chart_builder import build_chart
 from modules.trade_logger import show_checklist, show_trade_input, show_trade_log
 
-# 모바일 여부 자동 판별
-if st.session_state.get("is_mobile") is None:
-    try:
-        import streamlit.components.v1 as components
-        is_mobile = st.runtime.scriptrunner.script_run_context.get_script_run_ctx().user_info.get("device") == "mobile"
-        st.session_state.is_mobile = is_mobile
-    except:
-        st.session_state.is_mobile = False
+# 모바일 여부 자동 판별 (고정 높이 설정, 사용자 조정 불가)
+st.session_state.is_mobile = False
 
 st.title("📈 트레이딩 도우미 앱")
 
@@ -53,15 +47,10 @@ if st.button("차트 그리기"):
         price_change_pct = ((current_price - previous_close) / previous_close * 100) if previous_close > 0 else 0
 
         # ✅ 제목에 현재가 및 변화율 표시
-        if st.session_state.get("is_mobile"):
-        # ✅ 모바일이면 차트 높이 축소
-            chart_height = 500
-            chart_title = f"{ticker} (모바일: ${current_price:.2f},  {price_change_pct:.2f}%)"
-        else:
-            chart_title = f"{ticker} (현재가: ${current_price:.2f},  {price_change_pct:.2f}%)"
-            chart_height = 1000
-        # ✅ 차트 그리기       
+        chart_height = 600
+        chart_title = f"{ticker} (현재가: ${current_price:.2f},  {price_change_pct:.2f}%)"
 
+        # ✅ 차트 그리기
         fig = build_chart(df, chart_title, ma_periods, df['Date'], df['Date'], height=chart_height)
         st.plotly_chart(fig, use_container_width=True)
 
