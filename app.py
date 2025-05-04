@@ -10,10 +10,9 @@ from modules.trade_logger import show_checklist, show_trade_input, show_trade_lo
 # 모바일 여부 자동 판별
 if st.session_state.get("is_mobile") is None:
     try:
-        if st.browser.user_agent and 'Mobile' in st.browser.user_agent:
-            st.session_state.is_mobile = True
-        else:
-            st.session_state.is_mobile = False
+        import streamlit.components.v1 as components
+        is_mobile = st.runtime.scriptrunner.script_run_context.get_script_run_ctx().user_info.get("device") == "mobile"
+        st.session_state.is_mobile = is_mobile
     except:
         st.session_state.is_mobile = False
 
@@ -57,7 +56,7 @@ if st.button("차트 그리기"):
         chart_title = f"{ticker} (현재가: ${current_price:.2f}, 전일대비: {price_change_pct:.2f}%)"
 
         # ✅ 모바일이면 차트 높이 축소
-        chart_height = 300 if st.session_state.get("is_mobile") else 1000
+        chart_height = 500 if st.session_state.get("is_mobile") else 1000
 
         fig = build_chart(df, chart_title, ma_periods, df['Date'], df['Date'], height=chart_height)
         st.plotly_chart(fig, use_container_width=True)
