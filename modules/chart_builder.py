@@ -13,7 +13,7 @@ def build_chart(df, title, ma_list, date_min, date_max, height=1000):
         rows=3, cols=1, shared_xaxes=True,
         row_heights=[0.5, 0.25, 0.25],
         vertical_spacing=0.04,
-        subplot_titles=(title, "거래량", "RSI (상대강도지수)")
+        subplot_titles=(title, "거래량", "RSI")
     )
 
     # 봉차트
@@ -21,8 +21,8 @@ def build_chart(df, title, ma_list, date_min, date_max, height=1000):
         x=df['Date'],
         open=df['Open'], high=df['High'], low=df['Low'], close=df['Close'],
         name='Price',
-        increasing_line_color='black', increasing_fillcolor='rgba(255,255,255,0)',
-        decreasing_line_color='black', decreasing_fillcolor='black',
+        increasing_line_color='black', increasing_fillcolor='white', increasign_line_width=0.5,
+        decreasing_line_color='black', decreasing_fillcolor='black', decreasing_line_width=0.5,
         showlegend=True
     ), row=1, col=1)
 
