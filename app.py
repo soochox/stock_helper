@@ -53,7 +53,10 @@ if st.button("차트 그리기"):
         # ✅ 제목에 현재가 및 변화율 표시
         chart_title = f"{ticker} (현재가: ${current_price:.2f}, 전일대비: {price_change_pct:.2f}%)"
 
-        fig = build_chart(df, chart_title, ma_periods, df['Date'], df['Date'])
+        # ✅ 모바일이면 차트 높이 축소
+        chart_height = 700 if st.session_state.get("is_mobile") else 1000
+
+        fig = build_chart(df, chart_title, ma_periods, df['Date'], df['Date'], height=chart_height)
         st.plotly_chart(fig, use_container_width=True)
 
 # ✅ 2. 진입 체크리스트
