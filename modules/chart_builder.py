@@ -24,7 +24,7 @@ def build_chart(df, title, ma_list, date_min, date_max, height=1000):
         name='Price',
         increasing_line_color='black', increasing_fillcolor='white', increasing_line_width=0.5,
         decreasing_line_color='yellow', decreasing_fillcolor='black', decreasing_line_width=0.5,
-        showlegend=True
+        showlegend=False
     ), row=1, col=1)
 
     # 이동평균선
