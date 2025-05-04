@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 from datetime import date
@@ -7,6 +6,16 @@ from modules.data_loader import load_stock_data
 from modules.indicators import add_moving_averages, compute_rsi
 from modules.chart_builder import build_chart
 from modules.trade_logger import show_checklist, show_trade_input, show_trade_log
+
+# 모바일 여부 자동 판별
+if st.session_state.get("is_mobile") is None:
+    try:
+        if st.browser.user_agent and 'Mobile' in st.browser.user_agent:
+            st.session_state.is_mobile = True
+        else:
+            st.session_state.is_mobile = False
+    except:
+        st.session_state.is_mobile = False
 
 st.title("📈 트레이딩 도우미 앱")
 
