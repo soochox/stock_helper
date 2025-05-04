@@ -12,14 +12,14 @@ def build_chart(df, title, ma_list, date_min, date_max, height=1000):
     """
 
     # RSI 최종 값 계산
-    latest_rsi = df['RSI'].iloc[0] if 'RSI' in df.columns and not df['RSI'].isnull().all() else None
+    latest_rsi = df['RSI'].iloc[-1] if 'RSI' in df.columns and not df['RSI'].isnull().all() else None
     rsi_title = f"RSI: {latest_rsi:.2f})" if latest_rsi is not None else "RSI"
 
     fig = make_subplots(
         rows=3, cols=1, shared_xaxes=True,
         row_heights=[0.5, 0.25, 0.25],
         vertical_spacing=0.04,
-        subplot_titles=(title, "거래량", "RSI")
+        subplot_titles=(title, "거래량", rsi_title)
     )
 
     # 봉차트
@@ -49,7 +49,7 @@ def build_chart(df, title, ma_list, date_min, date_max, height=1000):
     # RSI
     fig.add_trace(go.Scatter(
         x=df['Date'], y=df['RSI'],
-        mode='lines', name=rsi_title, line=dict(color='orange'), showlegend=False
+        mode='lines', name='', line=dict(color='orange'), showlegend=False
     ), row=3, col=1)
     fig.add_shape(type='line', x0=df['Date'].min(), x1=df['Date'].max(), y0=70, y1=70,
                   line=dict(dash='dot', color='gray'), row=3, col=1)

@@ -11,4 +11,5 @@ def compute_rsi(df, period=14):
     avg_loss = loss.rolling(window=period).mean()
     rs = avg_gain / avg_loss
     df['RSI'] = 100 - (100 / (1 + rs))
+    
     return df
