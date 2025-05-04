@@ -31,20 +31,20 @@ def build_chart(df, title, ma_list, date_min, date_max, height=1000):
     for ma in ma_list:
         fig.add_trace(go.Scatter(
             x=df['Date'], y=df[f"SMA{ma}"],
-            mode='lines', name=f"SMA{ma}", line=dict(width=1.5)
+            mode='lines', name=f"SMA{ma}", line=dict(width=1.5), showlegend=False
         ), row=1, col=1)
 
     # 거래량
     fig.add_trace(go.Bar(
         x=df['Date'], y=df['Volume'], name='거래량',
-        marker=dict(color='rgba(150, 150, 250, 0.6)')
+        marker=dict(color='rgba(150, 150, 250, 0.6)'), showlegend=False
     ), row=2, col=1)
     fig.update_yaxes(title_text='', row=2, col=1)
 
     # RSI
     fig.add_trace(go.Scatter(
         x=df['Date'], y=df['RSI'],
-        mode='lines', name='RSI', line=dict(color='orange')
+        mode='lines', name='RSI', line=dict(color='orange'), showlegend=False
     ), row=3, col=1)
     fig.add_shape(type='line', x0=df['Date'].min(), x1=df['Date'].max(), y0=70, y1=70,
                   line=dict(dash='dot', color='gray'), row=3, col=1)
