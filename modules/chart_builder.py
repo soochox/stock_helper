@@ -23,7 +23,7 @@ def build_chart(df, title, ma_list, date_min, date_max, height=1000):
         open=df['Open'], high=df['High'], low=df['Low'], close=df['Close'],
         name='Price',
         increasing_line_color='black', increasing_fillcolor='white', increasing_line_width=0.5,
-        decreasing_line_color='white', decreasing_fillcolor='black', decreasing_line_width=0.5,
+        decreasing_line_color='yellow', decreasing_fillcolor='black', decreasing_line_width=0.5,
         showlegend=True
     ), row=1, col=1)
 
