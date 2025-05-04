@@ -18,9 +18,9 @@ def build_chart(df, ticker, ma_list, date_min, date_max, height=1000):
         name='Price',
         increasing_line_color='black',
         decreasing_line_color='black',
-        increasing_fillcolor='white',
-        increasing_line_width=0.4,
-        decreasing_fillcolor='black'
+        increasing_fillcolor='rgba(255,255,255,0)',  # 완전 투명
+        decreasing_fillcolor='black',
+        line_width=1.2
     ), row=1, col=1)
 
     # 이동평균선 겹쳐서 표시
@@ -56,8 +56,10 @@ def build_chart(df, ticker, ma_list, date_min, date_max, height=1000):
     # 전역 설정
     fig.update_layout(
         height=height,
+        autosize=True,
         xaxis_rangeslider_visible=False,
-        showlegend=True
+        showlegend=True,
+        margin=dict(l=20, r=20, t=40, b=20)
     )
 
     return fig
