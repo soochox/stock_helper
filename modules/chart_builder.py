@@ -23,7 +23,7 @@ def build_chart(df, title, ma_list, date_min, date_max, height=1000):
         open=df['Open'], high=df['High'], low=df['Low'], close=df['Close'],
         name='Price',
         increasing_line_color='black', increasing_fillcolor='white', increasing_line_width=0.5,
-        decreasing_line_color='black', decreasing_fillcolor='black', decreasing_line_width=0.5,
+        decreasing_line_color='white', decreasing_fillcolor='black', decreasing_line_width=0.5,
         showlegend=True
     ), row=1, col=1)
 
@@ -61,14 +61,15 @@ def build_chart(df, title, ma_list, date_min, date_max, height=1000):
         xaxis_rangeslider_visible=False,
         showlegend=True,
         dragmode=False,
-        legend=dict(
-            orientation="v",
-            yanchor="top",
-            y=1,
-            xanchor="left",
-            x=0,
-            font=dict(size=9)  # 기본 크기보다 약 30% 축소
-        )
+       legend=dict(
+        orientation="v",
+        yanchor="top",
+        y=0.99,
+        xanchor="left",
+        x=0.01,
+        font=dict(size=9),
+        bgcolor="rgba(255,255,255,0.5"),  # 반투명 배경
+        borderwidth=0
     )
-
+    
     return fig
