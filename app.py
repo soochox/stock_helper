@@ -47,7 +47,7 @@ if st.button("차트 그리기"):
         price_change_pct = ((current_price - previous_close) / previous_close * 100) if previous_close > 0 else 0
 
         # ✅ 제목에 현재가 및 변화율 표시
-        chart_height = 100
+        chart_height = 500
         chart_title = f"{ticker} (현재가: ${current_price:.2f},  {price_change_pct:.2f}%)"
 
         # ✅ 차트 그리기
