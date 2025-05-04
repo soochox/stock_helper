@@ -19,7 +19,7 @@ def build_chart(df, ticker, ma_list, date_min, date_max, height=1000):
         increasing_line_color='black',
         decreasing_line_color='black',
         increasing_fillcolor='white',
-        increasing_line_width=0.2,
+        increasing_line_width=0.4,
         decreasing_fillcolor='black'
     ), row=1, col=1)
 
