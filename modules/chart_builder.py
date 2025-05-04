@@ -68,8 +68,8 @@ def build_chart(df, title, ma_list, date_min, date_max, height=1000):
         xanchor="left",
         x=0.01,
         font=dict(size=9),
-        bgcolor="rgba(255,255,255,0.5"),  # 반투명 배경
-        borderwidth=0
+        bgcolor="rgba(255,255,255,0.5)",  # 반투명 배경
+        borderwidth=0)
     )
-    
+        
     return fig
