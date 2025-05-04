@@ -18,7 +18,7 @@ def build_chart(df, ticker, ma_list, date_min, date_max, height=1000):
         name='Price',
         increasing_line_color='black',
         decreasing_line_color='black',
-        increasing_fillcolor='rgba(255,255,255,0)',  # 완전 투명
+        increasing_fillcolor='white',
         decreasing_fillcolor='black'
     ), row=1, col=1)
 
